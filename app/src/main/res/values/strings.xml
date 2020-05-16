@@ -3,4 +3,13 @@
     <string name="check_your_internet_connection">Check your internet connection.</string>
     <string name="north_eastern_railway">North Eastern Railway</string>
     <string name="suvidha">SUVIDHA</string>
+    <string name="home">Home</string>
+    <string name="facilities_available">Facilities Available</string>
+    <string name="others">Others</string>
+    <string name="employee">Employee</string>
+    <string name="about_us">About Us</string>
+    <string name="ner_suvidha">Ner Suvidha</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

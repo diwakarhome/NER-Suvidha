@@ -1,0 +1,14 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/facilitiesAvailable"
+        android:icon="@drawable/ic_facilities_available"
+        android:title="@string/facilities_available" />
+    <item
+        android:id="@+id/employee"
+        android:icon="@drawable/ic_employee"
+        android:title="@string/employee" />
+    <item
+        android:id="@+id/aboutUs"
+        android:icon="@drawable/ic_about_us"
+        android:title="@string/about_us" />
+</menu>

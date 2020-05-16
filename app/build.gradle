@@ -133,4 +133,10 @@ dependencies {
 
     // Timber for logging
     implementation "com.jakewharton.timber:timber:${rootProject.ext.timber_version}"
+
+    // Design
+    implementation 'com.google.android.material:material:1.1.0'
+
+    //circle Image view
+    implementation 'de.hdodenhof:circleimageview:3.0.1'
 }
