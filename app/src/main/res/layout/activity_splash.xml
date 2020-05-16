@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bgSplash"
+    android:orientation="vertical"
+    tools:context="co.eschool.nersuvidha.splash.SplashActivity">
+
+    <TextView
+        android:layout_width="200dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="65dp"
+        android:gravity="center"
+        android:text="@string/north_eastern_railway"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/app_text"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="@string/suvidha"
+        android:textColor="@color/colorPrimary"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:src="@drawable/bg_splash" />
+
+        <ProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:indeterminateBehavior="repeat"
+            android:indeterminateDrawable="@android:drawable/progress_indeterminate_horizontal"
+            android:indeterminateDuration="10"
+            android:indeterminateOnly="true"
+            android:maxHeight="24dip"
+            android:minHeight="24dip"
+            android:progressBackgroundTint="@color/splashBottomUp"
+            android:progressBackgroundTintMode="multiply" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="@color/splashBottomDown" />
+    </LinearLayout>
+
+</LinearLayout>

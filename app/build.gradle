@@ -2,27 +2,102 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+def keystoreProperties = new Properties()
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+} else {
+    keystoreProperties.setProperty("keyAlias", String.valueOf(System.getenv("KEY_ALIAS")))
+    keystoreProperties.setProperty("keyPassword", String.valueOf(System.getenv("KEY_PASSWORD")))
+    keystoreProperties.setProperty("storeFile", String.valueOf(System.getenv("STORE_FILE")))
+    keystoreProperties.setProperty("storePassword", String.valueOf(System.getenv("STORE_PASSWORD")))
+}
+
+task('incrementVersionCode').doLast {
+    def versionPropsFile = file('version.properties')
+
+    if (versionPropsFile.canRead()) {
+        Properties versionProps = new Properties()
+
+        versionProps.load(new FileInputStream(versionPropsFile))
+
+        def code = versionProps['VERSION_CODE'].toInteger() + 1
+
+        versionProps['VERSION_CODE'] = code.toString()
+        versionProps.store(versionPropsFile.newWriter(), null)
+    } else {
+        throw new GradleException("Could not read version.properties!")
+    }
+}
+
 android {
+    defaultConfig {
+        vectorDrawables.useSupportLibrary = true
+    }
+
+    signingConfigs {
+        release {
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
+        }
+    }
+
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
 
-    defaultConfig {
-        applicationId "co.eschool.nersuvidha"
-        minSdkVersion 21
-        targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
+    def versionPropsFile = file('version.properties')
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    if (versionPropsFile.canRead()) {
+        Properties versionProps = new Properties()
+
+        versionProps.load(new FileInputStream(versionPropsFile))
+
+        def code = versionProps['VERSION_CODE'].toInteger() + 1
+        def name = versionProps['VERSION_NAME']
+
+        defaultConfig {
+            applicationId "co.eschool.nersuvidha"
+            minSdkVersion 19
+            targetSdkVersion 29
+            versionCode code
+            versionName name
+            vectorDrawables.useSupportLibrary = true
+            multiDexEnabled true
+            testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        }
+    } else {
+        throw new GradleException("Could not read version.properties!")
     }
+
+    final BASE_URL = "http://www.wsiznsuvidha.com/"
 
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+            debuggable false
+        }
+        debug {
+            applicationIdSuffix ".debug"
+            debuggable true
         }
     }
 
+    flavorDimensions 'api-environment'
+    productFlavors {
+        production {
+            dimension 'api-environment'
+            applicationIdSuffix ".production"
+            buildConfigField('String', 'BASE_URL', "\"" + BASE_URL + "\"")
+        }
+    }
+}
+
+androidExtensions {
+    experimental = true
 }
 
 dependencies {
